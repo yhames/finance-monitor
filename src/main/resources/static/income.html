@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="css/expenditure.css">
+</head>
+<body>
+<a href="/static"><h1>this is finance app</h1></a>
+<hr>
+<container id="container">
+    <div class="item">
+        <a href="#"><h3>수입내역</h3></a>
+        <table border=5>
+            <th>구분</th>
+            <th>제목</th>
+            <th>금액</th>
+            <th>날짜</th>
+            <th>세부내용</th>
+            <tr th:each="income = ${income}">
+                <td th:text="${income.category}">구분</td>
+                <td th:text="${income.title}">제목</td>
+                <td th:text="${income.value}">금액</td>
+                <td th:text="${income.date}">날짜</td>
+                <td th:text="${income.detail}">세부내용</td>
+            </tr>
+        </table>
+    </div>
+</container>
+</body>
+</html>
