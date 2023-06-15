@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}" href="../static/css/index.css">
+</head>
+<body>
+<a th:href="@{/}" href="./index.html"><h1>this is finance app</h1></a>
+<hr>
+<container id="container">
+    <div class="item income">
+        <a th:href="@{/income}" href="./income.html"><h2>수입내역</h2></a>
+        <h1 th:text="${totalIncome}">총 수입</h1>
+    </div>
+    <div class="item expenditure">
+        <a th:href="@{/expenditure}" href="./expenditure.html"><h2>지출내역</h2></a>
+        <h1 th:text="${totalExpenditure}">총 지출</h1>
+    </div>
+</container>
+</body>
+</html>

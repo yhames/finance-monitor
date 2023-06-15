@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import project.finance.domain.Expenditure;
 import project.finance.repository.ExpenditureRepository;
-import project.finance.request.ExpenditureRequest;
+import project.finance.request.ExpenditureCreate;
 
 @Service
 @RequiredArgsConstructor
@@ -12,7 +12,7 @@ public class ExpenditureService {
 
     private final ExpenditureRepository expenditureRepository;
 
-    public void save(ExpenditureRequest item) {
+    public void save(ExpenditureCreate item) {
         Expenditure expenditure = Expenditure.builder()
                 .category(item.getCategory())
                 .title(item.getTitle())

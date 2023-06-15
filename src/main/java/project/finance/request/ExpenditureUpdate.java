@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class ExpenditureRequest {
+public class ExpenditureUpdate {
     private ExpenditureCategory category;
     private String title;
     private String detail;

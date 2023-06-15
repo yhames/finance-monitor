@@ -3,17 +3,15 @@ package project.finance.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 import project.finance.category.ExpenditureCategory;
 import project.finance.category.PaymentType;
 
 import java.time.LocalDate;
 
 @Getter
-@AllArgsConstructor
 @Builder
+@AllArgsConstructor
 public class Expenditure {
     @Id
     @GeneratedValue
