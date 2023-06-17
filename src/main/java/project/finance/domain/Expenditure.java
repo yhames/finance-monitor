@@ -9,9 +9,10 @@ import project.finance.category.PaymentType;
 
 import java.time.LocalDate;
 
-@Getter
+@Data
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Expenditure {
     @Id
     @GeneratedValue
@@ -28,10 +29,10 @@ public class Expenditure {
     private String detail;
 
     @Column(name = "EXPENDITURE_VALUE")
-    private Long value;
+    private Long expenditureValue;
 
     @Column(name = "EXPENDITURE_DATE")
-    private LocalDate date;
+    private LocalDate expenditureDate;
 
     @Column(name = "EXPENDITURE_PAYMENT")
     private PaymentType payment;

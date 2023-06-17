@@ -17,8 +17,8 @@ public class ExpenditureService {
                 .category(item.getCategory())
                 .title(item.getTitle())
                 .detail(item.getDetail())
-                .value(item.getValue())
-                .date(item.getDate())
+                .expenditureValue(item.getValue())
+                .expenditureDate(item.getDate())
                 .payment(item.getPayment())
                 .build();
         expenditureRepository.save(expenditure);

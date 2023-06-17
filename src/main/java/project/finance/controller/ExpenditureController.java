@@ -2,7 +2,9 @@ package project.finance.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import project.finance.domain.Expenditure;
 import project.finance.request.ExpenditureCreate;
 import project.finance.service.ExpenditureService;
 
@@ -14,7 +16,7 @@ public class ExpenditureController {
     private final ExpenditureService expenditureService;
 
     @PostMapping("/save")
-    public String save(@ModelAttribute ExpenditureCreate item) {
+    public String save(@ModelAttribute ExpenditureCreate item, Model model) {
         expenditureService.save(item);
         return "redirect:/";
     }

@@ -7,7 +7,6 @@ import project.finance.request.ExpenditureUpdate;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
 public interface ExpenditureRepository {
 
     void save(Expenditure expenditure);

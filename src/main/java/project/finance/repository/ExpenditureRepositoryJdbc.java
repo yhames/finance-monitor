@@ -1,51 +1,49 @@
 package project.finance.repository;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
-import project.finance.category.ExpenditureCategory;
-import project.finance.category.PaymentType;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
 import project.finance.domain.Expenditure;
 import project.finance.request.ExpenditureUpdate;
 
 import javax.sql.DataSource;
-import java.sql.Date;
-import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 // TODO : NamedParameterJdbcTemplate, SimpleJdbcInsert 추가
 @Slf4j
+@Repository
 public class ExpenditureRepositoryJdbc implements ExpenditureRepository {
 
     //    private final JdbcTemplate template;
     private final NamedParameterJdbcTemplate template;
+    private final SimpleJdbcInsert jdbcInsert;
 
     public ExpenditureRepositoryJdbc(DataSource dataSource) {
         this.template = new NamedParameterJdbcTemplate(dataSource);
+        this.jdbcInsert = new SimpleJdbcInsert(dataSource)
+                .withTableName("expenditure")
+                .usingGeneratedKeyColumns("id");
     }
 
     @Override
     public void save(Expenditure expenditure) {
-        String sql = "insert into expenditure(category, title, detail, value, date, payment)" +
-                " values (:category,:title,:detail,:value,:date,:payment)";
         BeanPropertySqlParameterSource param = new BeanPropertySqlParameterSource(expenditure);
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        template.update(sql, param, keyHolder);
+        jdbcInsert.executeAndReturnKey(param);
     }
 
     @Override
     public void update(Long id, ExpenditureUpdate updateParam) {
         String sql = "update expenditure" +
-                " set category=:category, title=:title, detail=:detail, value=:value, date=:date, payment=:payment where id=:id";
+                " set category=:category, title=:title, detail=:detail, expenditure_value=:value, expenditure_date=:date, payment=:payment where id=:id";
         MapSqlParameterSource param = new MapSqlParameterSource()
                 .addValue("category", updateParam.getCategory())
                 .addValue("title", updateParam.getTitle())
@@ -58,13 +56,13 @@ public class ExpenditureRepositoryJdbc implements ExpenditureRepository {
 
     @Override
     public List<Expenditure> findAll() {
-        String sql = "select id, category, title, detail, value, date, payment from expenditure";
+        String sql = "select id, category, title, detail, expenditure_value, expenditure_date, payment from expenditure";
         return template.query(sql, expenditureRowMapper());
     }
 
     @Override
     public Optional<Expenditure> findById(Long id) {
-        String sql = "select category, title, detail, value, date, payment from expenditure where id=:id";
+        String sql = "select category, title, detail, expenditure_value, expenditure_date, payment from expenditure where id=:id";
         Map<String, Object> param = Map.of("id", id);
         try {
             // 이름 지정 파라미터가 1개여서 가장 단순한 Map 사용
