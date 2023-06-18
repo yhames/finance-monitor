@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="project.finance.repository.mybatis.ExpenditureMapper">
+
+    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+        insert into expenditure(category, title, detail, expenditure_value, expenditure_date, payment)
+        values (#{category}, #{title}, #{detail}, #{expenditureValue}, #{expenditureDate}, #{payment});
+    </insert>
+
+    <update id="update">
+        update expenditure
+        set category=#{updateParam.category},
+            title=#{updateParam.title},
+            detail=#{updateParam.detail},
+            expenditure_value=#{updateParam.value},
+            expenditure_date=#{updateParam.date},
+            payment=#{updateParam.payment}
+        where id = #{id};
+    </update>
+
+    <select id="findById" resultType="Expenditure">
+        select id category, title, detail, expenditure_value, expenditure_date, payment
+        from expenditure
+        where id = #{id};
+    </select>
+
+    <select id="findAll" resultType="Expenditure">
+        select id, category, title, detail, expenditure_value, expenditure_date, payment
+        from expenditure;
+    </select>
+</mapper>

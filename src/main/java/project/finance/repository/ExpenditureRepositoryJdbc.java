@@ -20,7 +20,7 @@ import java.util.Optional;
 
 // TODO : NamedParameterJdbcTemplate, SimpleJdbcInsert 추가
 @Slf4j
-@Repository
+//@Repository
 public class ExpenditureRepositoryJdbc implements ExpenditureRepository {
 
     //    private final JdbcTemplate template;
